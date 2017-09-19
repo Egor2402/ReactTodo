@@ -1,0 +1,58 @@
+body {
+  background-image: url(../img/body.jpg);
+}
+
+.header {
+  padding: 5px;
+  font-size: 26px;
+  text-align: center;
+  background-color: rgba(0,0,0,.4);
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+button.btn {
+  background-color: rgba(0,0,0,.4);
+  color: #fff;
+}
+
+.tasks-list {
+  margin-top: 10px;
+}
+
+.add-todo > div {
+  display: flex;
+}
+
+.add-todo > div > span {
+  margin: 5px 0;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+}
+
+.tasks-list-item, .tasks-list-header {
+  color: #fff;
+  padding: 15px 10px;
+}
+
+.tasks-list-item {
+  cursor: pointer;
+  background-color: rgba(0,0,0,.4);
+  border-bottom: 1px solid #b5b5b5;
+}
+
+.tasks-list-header {
+  background-color: rgba(0,0,0,.5);
+  font-size: 20px;
+  border-bottom: 1px solid #fff;
+}
+
+.tasks-list-item:hover {
+  background-color: rgba(0,0,0,.5);
+}
+
+.hidden {
+  display: none;
+}
