@@ -9,8 +9,11 @@ class TodoListItem extends Component {
   render() {
     return (
       <div className="row tasks-list-item">
-        <div className="col-xs-4">
+        <div className="col-xs-3">
           {this.props.todo.task}
+        </div>
+        <div className="col-xs-1">
+          {this.props.todo.typeName}
         </div>
         <div className="col-xs-3">
           {this.formatDate(this.props.todo.created_at)}

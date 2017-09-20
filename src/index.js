@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $ from 'jquery';
 import _ from 'underscore';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
@@ -9,8 +9,13 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    const preparedTodos = props.todos.map((todo) => {
+      todo.typeName = _.find(props.types, (type) => { return type.id === todo.type }).name;
+      return todo;
+    });
+
     this.state = {
-      todos: props.todos,
+      todos: preparedTodos,
       showAddTask: false
     };
   }
@@ -40,18 +45,18 @@ class App extends Component {
           <AddTodo
             onCancelAddingTask={::this.hideAddingTask}
             onAddTask={::this.addTask}
+            types={this.props.types}
           />
         </div>
-        <TodoList todos={this.state.todos} />
+        <TodoList todos={this.state.todos} types={this.props.types} />
       </div>
     );
   }
 };
 
-$.ajax({
-  type: 'GET',
-  url: 'http://rygorh.dev.monterosa.co.uk/todo/items.php',
-  success(todos) {
-    ReactDOM.render(<App todos={todos} />, document.querySelector('.container'));
-  }
+const todosPromise = $.ajax('http://rygorh.dev.monterosa.co.uk/todo/items.php');
+const typesTodoPromise = $.ajax('http://rygorh.dev.monterosa.co.uk/todo/types.php');
+
+$.when(todosPromise, typesTodoPromise).done((todosData, typesData) => {
+  ReactDOM.render(<App todos={todosData[0]} types={typesData[0]} />, document.querySelector('.container'));
 });

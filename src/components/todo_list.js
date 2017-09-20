@@ -15,7 +15,8 @@ class TodoList extends Component {
     return (
       <div className="tasks-list">
         <div className="row tasks-list-header">
-          <div className="col-xs-4">Task</div>
+          <div className="col-xs-3">Task</div>
+          <div className="col-xs-1">Type</div>
           <div className="col-xs-3">Created At</div>
           <div className="col-xs-3">Expires At</div>
           <div className="col-xs-2 text-right">Completed</div>

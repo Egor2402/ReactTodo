@@ -7,11 +7,12 @@ class AddTodo extends Component {
 
     this.state = {
       term: '',
-      expires_at: this.getCurrentDateTime()
+      expires_at: this.getCurrentDateTime(),
+      type: props.types[0].name
     };
   }
 
-  onInputChange(state) {
+  onSelectorChange(state) {
     this.setState(state);
   }
 
@@ -20,7 +21,8 @@ class AddTodo extends Component {
       this.props.onAddTask({
         task: this.state.term,
         created_at: moment().format('X'),
-        expires_at: moment(this.state.expires_at).format('X')
+        expires_at: moment(this.state.expires_at).format('X'),
+        typeName: this.state.type
       });
       this.setState({term: ''});
     }
@@ -35,19 +37,32 @@ class AddTodo extends Component {
   }
 
   render() {
+    const typeOptions = [];
+    this.props.types.forEach((type) => {
+      typeOptions.push(<option key={type.id}>{type.name}</option>);
+    });
+
     return (
       <div>
         <span>Task:</span>
         <input type="text"
           className="form-control"
           value={this.state.term}
-          onChange={(event) => this.onInputChange({term: event.target.value})}
+          onChange={(event) => this.onSelectorChange({term: event.target.value})}
         />
-      <span>Expires At:</span>
+        <span>Type:</span>
+        <select
+          className="form-control"
+          onChange={(event) => this.onSelectorChange({type: event.target.value})}
+          value={this.state.type}
+        >
+          {typeOptions}
+        </select>
+        <span>Expires At:</span>
         <input type="datetime-local"
           className="form-control"
           value={this.state.expires_at}
-          onChange={(event) => this.onInputChange({expires_at: event.target.value})}
+          onChange={(event) => this.onSelectorChange({expires_at: event.target.value})}
         />
         <button className="btn" onClick={::this.onClickAddButton}>Add</button>
         <button className="btn" onClick={this.props.onCancelAddingTask}>Cancel</button>
